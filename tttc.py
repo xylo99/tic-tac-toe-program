@@ -1,3 +1,12 @@
+# Tic Tac Toe over TCP
+# v0.1
+# Ted
+# email: thandy1@umbc.edu
+# Originally made in: 2018-10
+# Updated: 2019-04, 2019-05,
+# This script implements a TCP client to communicate with a TCP server to play the game
+# of tic tac toe.
+
 import socket
 import sys
 
@@ -17,7 +26,6 @@ try:
        IP = sys.argv[3]
     s.connect((IP, port))
     #we indicate whether or not the client starts to the server
-    #
     s.send(client_start)
     data = s.recv(1024)
     print data

@@ -1,5 +1,15 @@
+# Tic Tac Toe over TCP
+# v0.1
+# Ted
+# email: thandy1@umbc.edu
+# Originally made in: 2018-10
+# Updated: 2019-04, 2019-05,
+# This script implements a tic tac toe service over tcp. This server implements the game 
+# to be played with a client over TCP. No matter the result of the game, the client 
+# gets removed and the server starts listening for new clients.
+
 import threading 
-import socket 
+import socket
 import select
 import sys
 
