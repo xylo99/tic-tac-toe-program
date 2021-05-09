@@ -1,40 +1,35 @@
 import socket
 import sys
 
-IP   = ''
-port = 13037
-s    = None
-client_start = 'FALSE'
 
-#connect if ther are no socket errors
-try:
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    host = socket.gethostname()
-    if len(sys.argv) == 3:
-       IP = sys.argv[2]
-    else:
-       client_start = sys.argv[1]
-       IP = sys.argv[3]
-    s.connect((IP, port))
-    #we indicate whether or not the client starts to the server
-    #
-    s.send(client_start)
-    data = s.recv(1024)
-    print data
-except socket.error, (value, message):
-    if s:
+class Client:
+    def __init__(self, ip, client_start):
+        self.client_start = b"-c" if client_start else b'FALSE'
+        self.IP = ip if ip else '127.0.0.1'
+        self.port = 13037
+
+    def run_client(self):
+        # connect if there are no socket errors
+        try:
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.connect((self.IP, self.port))
+            # we indicate whether or not the client starts to the server
+            s.send(self.client_start)
+            data = s.recv(1024)
+            print(data.decode())
+        except socket.error as e:
+            s.close()
+            print(f"Could not open socket, reason:\n {e}")
+            sys.exit(1)
+
+        while True:
+            data = s.recv(1024).decode()
+            if data:
+                if data == 'e':
+                    print(data)
+                    break
+                else:
+                    print(data)
+            data = input('> ')
+            s.sendall(data.encode())
         s.close()
-    print "Could not open socket: " + message
-    sys.exit(1)
-#send and recieve gamedata until we recieve indication to end the connection
-while True:
-    data = s.recv(1024)
-    if data:
-       if data[:1] == 'e':
-          print data[1:]
-          break
-       else:
-          print data
-    data = raw_input('> ')
-    s.sendall(data)
-s.close()
