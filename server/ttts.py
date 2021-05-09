@@ -1,7 +1,7 @@
 from threading import Thread
 import socket
 import select
-from tttg import TTTGame
+from game.tttg import TTTGame
 
 
 class ServerUtils(Thread):

@@ -1,4 +1,4 @@
-from tttg_menu_printer import mp_print_menu
+from game.tttg_menu_printer import mp_print_menu
 
 
 class TTTGame:
