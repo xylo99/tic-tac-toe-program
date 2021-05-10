@@ -1,4 +1,4 @@
-from client.tttc import Client
+from tttc import Client
 import argparse
 
 
