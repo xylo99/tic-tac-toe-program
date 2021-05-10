@@ -80,27 +80,34 @@ class TTTGame:
 
     def check_for_win(self, row, col, seed):
         # Return true if a row of 'seed' was played.
+        counter = 0
         for i in range(self.N):
             if self.board[row][i] == seed:
-                if i == self.N - 1:
+                counter += 1
+                if counter == 3:
                     return True
             else:
                 break
+
         # Return true if a column of 'seed' was played.
+        counter = 0
         for i in range(self.N):
             if self.board[i][col] == seed:
-                if i == self.N - 1:
+                counter += 1
+                if counter == 3:
                     return True
             else:
                 break
 
         # Return true if diagonal/anti-diagonal of 'seed' was played.
+        counter = 0
         win = True
         for i in range(self.N):
             for j in range(self.N):
                 if i == j:
                     if self.board[i][j] == seed:
-                        if i == self.N - 1:
+                        counter += 1
+                        if counter == 3:
                             return True
                         else:
                             win = False
@@ -109,11 +116,13 @@ class TTTGame:
                 break
 
         win = True
+        counter = 0
         for i in range(self.N):
             for j in range(self.N):
                 if i + j == 2:
                     if self.board[i][j] == seed:
-                        if i == self.N - 1:
+                        counter += 1
+                        if counter == 3:
                             return True
                     else:
                         win = False

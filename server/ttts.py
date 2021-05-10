@@ -25,7 +25,6 @@ class ServerUtils(Thread):
         move_number = 0
         self.client.sendall(menu)
         self.client.sendall(board.encode())
-
         # Play game with client, and wait for a new connection if no data is received.
         while True:
             data = self.client.recv(1024)
@@ -84,6 +83,8 @@ class Server(object):
                         client = ServerUtils()
                         client.setup(sock, address)
                         client.start()
+                    else:
+                        continue
             except KeyboardInterrupt:
                 print("Keyboard interrupt detected, connection will close after threads are ended.")
                 break
